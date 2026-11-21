@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | BorrowBox</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-inner">
+        <a href="/" class="logo">BorrowBox</a>
+
+        <div class="nav-links">
+            <span id="welcomeUser"></span>
+
+            <button class="btn btn-light" onclick="logout()">
+                Log out
+            </button>
+        </div>
+    </div>
+</nav>
+
+<div class="container dashboard-layout">
+
+    <aside class="sidebar">
+
+        <button class="active" data-tab="overview">
+            <span id="homeIcon"></span>
+            Overview
+        </button>
+
+        <button data-tab="browse">
+            <span id="searchIcon"></span>
+            Browse Items
+        </button>
+
+        <button data-tab="listings">
+            <span id="packageIcon"></span>
+            My Listings
+        </button>
+
+        <button data-tab="add">
+            <span id="plusIcon"></span>
+            Add New Item
+        </button>
+
+        <button data-tab="requests">
+            <span id="requestIcon"></span>
+            Borrowing Requests
+        </button>
+
+        <button data-tab="profile">
+            <span id="userIcon"></span>
+            My Profile
+        </button>
+
+    </aside>
+
+    <main>
+
+        <div id="message" class="message"></div>
+
+        <section id="overview" class="tab-content">
+            <h1>My Dashboard</h1>
+            <p class="muted">Manage your borrowing and lending activity.</p>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <p class="muted">My Listings</p>
+                    <strong id="totalListings">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <p class="muted">Borrowed Items</p>
+                    <strong id="totalBorrowed">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <p class="muted">Items Lent</p>
+                    <strong id="totalLent">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <p class="muted">Pending Requests</p>
+                    <strong id="totalPending">0</strong>
+                </div>
+
+            </div>
+
+            <div class="panel">
+                <h2>Welcome to BorrowBox</h2>
+                <p class="muted" style="margin-top:10px">
+                    Share items you do not currently need and borrow
+                    useful things from people in your community.
+                </p>
+
+                <button
+                    class="btn btn-primary"
+                    style="margin-top:20px"
+                    onclick="switchTab('add')"
+                >
+                    Publish an Item
+                </button>
+            </div>
+        </section>
+
+        <section id="browse" class="tab-content" hidden>
+            <h1>Browse Items</h1>
+            <p class="muted">Discover items available for borrowing.</p>
+
+            <div class="search-box">
+                <input
+                    id="dashboardSearch"
+                    placeholder="Search items..."
+                >
+
+                <button
+                    class="btn btn-primary"
+                    onclick="loadDashboardItems()"
+                >
+                    Search
+                </button>
+            </div>
+
+            <div id="dashboardItems" class="item-grid"
+                 style="margin-top:25px"></div>
+        </section>
+
+        <section id="listings" class="tab-content" hidden>
+            <div class="section-heading">
+                <div>
+                    <h1>My Listings</h1>
+                    <p class="muted">Manage your published items.</p>
+                </div>
+
+                <button class="btn btn-primary"
+                        onclick="switchTab('add')">
+                    Add Item
+                </button>
+            </div>
+
+            <div id="myListings" class="item-grid"></div>
+        </section>
+
+        <section id="add" class="tab-content" hidden>
+            <div class="panel">
+                <h1 id="itemFormHeading">Publish New Item</h1>
+
+                <form id="itemForm">
+
+                    <input type="hidden" id="editingItemId">
+
+                    <div class="form-group">
+                        <label>Item title</label>
+                        <input id="itemTitle" required maxlength="150">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="itemDescription" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category</label>
+
+                        <select id="itemCategory" required>
+                            <option value="">Select category</option>
+                            <option value="Books">Books</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Tools">Tools</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Condition</label>
+
+                        <select id="itemCondition">
+                            <option value="NEW">New</option>
+                            <option value="LIKE_NEW">Like New</option>
+                            <option value="GOOD" selected>Good</option>
+                            <option value="FAIR">Fair</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input id="itemLocation" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Daily borrowing price (PKR)</label>
+                        <input id="itemPrice" type="number"
+                               min="0" step="1" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Security deposit (PKR)</label>
+                        <input id="itemDeposit" type="number"
+                               min="0" step="1" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Image URL (optional)</label>
+                        <input id="itemImage" type="url">
+                    </div>
+
+                    <button class="btn btn-primary form-submit">
+                        Publish Item
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancelEdit"
+                        class="btn btn-light form-submit"
+                        hidden
+                        onclick="resetItemForm()"
+                    >
+                        Cancel Editing
+                    </button>
+
+                </form>
+            </div>
+        </section>
+
+        <section id="requests" class="tab-content" hidden>
+            <h1>Borrowing Requests</h1>
+            <p class="muted">
+                Manage incoming requests and your borrowing activity.
+            </p>
+
+            <div id="requestList" style="margin-top:25px"></div>
+        </section>
+
+        <section id="profile" class="tab-content" hidden>
+            <div class="panel">
+                <h1>My Profile</h1>
+
+                <form id="profileForm">
+
+                    <div class="form-group">
+                        <label>Full name</label>
+                        <input id="profileName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input id="profileEmail" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input id="profilePhone">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input id="profileLocation" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>About me</label>
+                        <textarea id="profileBio"></textarea>
+                    </div>
+
+                    <button class="btn btn-primary form-submit">
+                        Save Profile
+                    </button>
+
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<footer>
+    BorrowBox. Share more. Waste less.
+</footer>
+
+<script src="/js/common.js"></script>
+<script src="/js/dashboard.js"></script>
+
+</body>
+</html>

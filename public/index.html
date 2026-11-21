@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BorrowBox | Borrow Instead of Buy</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-inner">
+        <a href="/" class="logo">BorrowBox</a>
+
+        <div class="nav-links">
+            <!-- <a href="/">Explore</a> -->
+             <a href="#explore" >
+            Explore 
+        </a>
+            <a href="/login.html">Login</a>
+            <a href="/register.html" class="btn btn-primary">Get Started</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container hero-content">
+        <h1>Why buy when you can borrow?</h1>
+
+        <p>
+            Discover useful items around you. Borrow what you need,
+            lend what you don't use, and build a sharing community.
+        </p>
+
+        <a href="#explore" class="btn btn-primary">
+            Explore Items
+        </a>
+
+        <div class="search-box">
+            <input
+                type="search"
+                id="search"
+                placeholder="Search books, tools, sports equipment..."
+            >
+
+            <button class="btn btn-primary" onclick="loadItems()">
+                Search
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="explore">
+    <div class="container">
+
+        <div class="section-heading">
+            <div>
+                <h2>Explore available items</h2>
+                <p class="muted">Find something useful to borrow.</p>
+            </div>
+        </div>
+
+        <div class="search-box">
+            <select id="category">
+                <option value="">All categories</option>
+                <option value="Books">Books</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Tools">Tools</option>
+                <option value="Sports">Sports</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <input id="location" placeholder="Enter location">
+
+            <button class="btn btn-primary" onclick="loadItems()">
+                Apply Filters
+            </button>
+        </div>
+
+        <div id="itemGrid" class="item-grid" style="margin-top:25px">
+            <div class="empty-state">Loading items...</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        BorrowBox. Share more. Waste less.
+    </div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script src="/js/browse.js"></script>
+
+</body>
+</html>

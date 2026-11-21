@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | BorrowBox</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-inner">
+        <a href="/" class="logo">BorrowBox</a>
+        <a href="/" class="muted">Back to home</a>
+    </div>
+</nav>
+
+<div class="container">
+    <form id="registerForm" class="form-card">
+        <h1>Create your account</h1>
+        <p class="muted">Join the BorrowBox community.</p>
+
+        <div id="message" class="message"></div>
+
+        <div class="form-group">
+            <label>Full name</label>
+            <input
+                type="text"
+                name="full_name"
+                required
+                maxlength="100"
+            >
+        </div>
+
+        <div class="form-group">
+            <label>Email address</label>
+            <input
+                type="email"
+                name="email"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input
+                type="password"
+                name="password"
+                minlength="8"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label>Your location</label>
+            <input
+                type="text"
+                name="location"
+                placeholder="Faisalabad"
+                required
+            >
+        </div>
+
+        <button class="btn btn-primary form-submit">
+            Create Account
+        </button>
+
+        <p class="muted" style="text-align:center;margin-top:20px">
+            Already registered?
+            <a href="/login.html" style="color:#315cce">
+                Login
+            </a>
+        </p>
+    </form>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/auth.js"></script>
+
+</body>
+</html>
